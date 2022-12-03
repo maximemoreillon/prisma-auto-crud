@@ -1,12 +1,11 @@
-import prisma from '../prismaClient.js'
 
-export const genrateItemCreate = (tableName) => {
+export const genrateItemCreate = (prismaTableController) => {
 
     return async (req, res, next) => {
 
         try {
             const data = req.body
-            const newItem = await prisma[tableName].create({ data })
+            const newItem = await prismaTableController.create({ data })
             res.send(newItem)
         } catch (error) {
             next(error)
@@ -21,7 +20,7 @@ export const genrateItemsRead = (tableName) => {
 
         try {
             const query = {}
-            const items = await prisma[tableName].findMany(query)
+            const items = await prismaTableController.findMany(query)
             res.send(items)
         } catch (error) {
             next(error)
@@ -30,14 +29,14 @@ export const genrateItemsRead = (tableName) => {
     }
 }
 
-export const genrateItemRead = (tableName) => {
+export const genrateItemRead = (prismaTableController) => {
 
     return async (req, res, next) => {
 
         try {
             const { id } = req.params
             const query = { where: { id: Number(id) } }
-            const item = await prisma[tableName].findUnique(query)
+            const item = await prismaTableController.findUnique(query)
             res.send(item)
         } catch (error) {
             next(error)
@@ -47,7 +46,7 @@ export const genrateItemRead = (tableName) => {
 }
 
 
-export const genrateItemUpdate = (tableName) => {
+export const genrateItemUpdate = (prismaTableController) => {
 
     return async (req, res, next) => {
 
@@ -60,7 +59,7 @@ export const genrateItemUpdate = (tableName) => {
                 data
             }
 
-            const itemUpdate = await prisma[tableName].update(query)
+            const itemUpdate = await prismaTableController.update(query)
             res.send(itemUpdate)
         } catch (error) {
             next(error)
@@ -70,14 +69,14 @@ export const genrateItemUpdate = (tableName) => {
 }
 
 
-export const genrateItemDelete = (tableName) => {
+export const genrateItemDelete = (prismaTableController) => {
 
     return async (req, res, next) => {
 
         try {
             const { id } = req.params
             const query = { where: { id: Number(id) } }
-            const itemDelete = await prisma[tableName].delete(query)
+            const itemDelete = await prismaTableController.delete(query)
             res.send(itemDelete)
         } catch (error) {
             next(error)

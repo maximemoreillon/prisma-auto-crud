@@ -9,17 +9,17 @@ import {
 
 
 
-export const generateTableRouter = (tableName) => {
+export const generateTableRouter = (prismaTableController) => {
     const router = Router()
 
     router.route('/')
-        .post(genrateItemCreate(tableName))
-        .get(genrateItemsRead(tableName))
+        .post(genrateItemCreate(prismaTableController))
+        .get(genrateItemsRead(prismaTableController))
 
     router.route('/:id')
-        .get(genrateItemRead(tableName))
-        .put(genrateItemUpdate(tableName))
-        .delete(genrateItemDelete(tableName))
+        .get(genrateItemRead(prismaTableController))
+        .put(genrateItemUpdate(prismaTableController))
+        .delete(genrateItemDelete(prismaTableController))
 
     return router
 }
