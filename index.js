@@ -1,8 +1,8 @@
-import prismaClient from './prismaClient.js'
 import express from 'express'
 import cors from 'cors'
 
 import { prismaAutoCrud } from './primsaAutoCrud.js'
+import prismaClient from './prismaClient.js'
 
 const {
     PORT = 7070
