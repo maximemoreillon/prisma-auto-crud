@@ -14,7 +14,7 @@ export const genrateItemCreate = (prismaTableController) => {
     }
 }
 
-export const genrateItemsRead = (tableName) => {
+export const genrateItemsRead = (prismaTableController) => {
 
     return async (req, res, next) => {
 

@@ -24,9 +24,6 @@ app.get('/', (req, res) => {
 app.use(prismaAutoCrud(prisma))
 
 
-
-
-
 app.listen(PORT, () => {
     console.log(`[Express] Listening on port ${PORT}`)
 })
