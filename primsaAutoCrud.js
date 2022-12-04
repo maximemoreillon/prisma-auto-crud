@@ -27,6 +27,7 @@ export const prismaAutoCrud = (prismaClient) => {
 
 
             router.get('/tables', (req, res) => {
+                // Redundant with above
                 res.send(tables)
             })
 
@@ -36,6 +37,7 @@ export const prismaAutoCrud = (prismaClient) => {
                 const prismaTableController = prismaClient[tableName]
                 const tableRouter = generateTableRouter(prismaTableController)
                 router.use(tableRoute, tableRouter)
+
             })
         })
     

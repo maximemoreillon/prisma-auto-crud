@@ -7,7 +7,7 @@ An express middleware that generates routes and CRUD controllers for every table
 
 ## To do:
 
-* [ ] Pagination
+* [x] Pagination
 * [ ] Sorting, ordering
 * [ ] Query filters
 * And more...

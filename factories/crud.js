@@ -19,9 +19,22 @@ export const genrateItemsRead = (prismaTableController) => {
     return async (req, res, next) => {
 
         try {
-            const query = {}
+
+            const {
+                skip = 0,
+                take = 100,
+                ...rest
+            } = req.query
+
+            // Note: offset pagination does not scale well
+            // https://www.prisma.io/docs/concepts/components/prisma-client/pagination#-cons-of-offset-pagination
+            const query = {skip: Number(skip), take: Number(take), where: {...rest}}
+
             const items = await prismaTableController.findMany(query)
-            res.send(items)
+
+            const total = await prismaTableController.count({ where: { ...rest } })
+
+            res.send({skip, take, total, items})
         } catch (error) {
             next(error)
         }
