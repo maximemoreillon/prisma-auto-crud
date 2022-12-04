@@ -9,12 +9,22 @@ export const prismaAutoCrud = (prismaClient) => {
 
     prismaClient._getDmmf()
         .then(dmmf => {
+
+
             const models = dmmf.datamodel.models
             const tables = models.map(model => model.name)
 
             router.get('/models', (req, res) => {
                 res.send(models)
             })
+
+            router.get('/models/:modelName', (req, res) => {
+                const { modelName } = req.params
+                const model = dmmf.modelMap[modelName]
+                res.send(model)
+            })
+
+
 
             router.get('/tables', (req, res) => {
                 res.send(tables)
@@ -29,8 +39,5 @@ export const prismaAutoCrud = (prismaClient) => {
             })
         })
     
-    
-    
-
     return router
 }
