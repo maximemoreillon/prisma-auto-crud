@@ -20,6 +20,7 @@ export const genrateItemsRead = (prismaTableController) => {
 
         try {
 
+            // TODO: Sorting and ordering
             const {
                 skip = 0,
                 take = 100,
@@ -43,6 +44,8 @@ export const genrateItemsRead = (prismaTableController) => {
 }
 
 export const genrateItemRead = (prismaTableController) => {
+
+    // TODO: allow user to do includes
 
     return async (req, res, next) => {
 

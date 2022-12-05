@@ -2,8 +2,8 @@ import { Router } from 'express'
 import { generateTableRouter } from './factories/router.js'
 
 
-// Node: Middleware cannot be async
-export const prismaAutoCrud = (prismaClient) => {
+// Note: Middleware cannot be async
+export const prismaAutoCrud = (prismaClient, opts = {}) => {
 
     const router = Router()
 
@@ -23,8 +23,6 @@ export const prismaAutoCrud = (prismaClient) => {
                 const model = dmmf.modelMap[modelName]
                 res.send(model)
             })
-
-
 
             router.get('/tables', (req, res) => {
                 // Redundant with above
