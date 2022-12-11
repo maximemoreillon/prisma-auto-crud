@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { generateTableRouter } from './factories/router.js'
-
+import createHttpError from 'http-errors'
 
 // Note: Middleware cannot be async
 export const prismaAutoCrud = (prismaClient, opts = {}) => {
@@ -21,6 +21,7 @@ export const prismaAutoCrud = (prismaClient, opts = {}) => {
             router.get('/models/:modelName', (req, res) => {
                 const { modelName } = req.params
                 const model = dmmf.modelMap[modelName]
+                if (!model) throw createHttpError(404, `Model ${modelName} does not exist`)
                 res.send(model)
             })
 

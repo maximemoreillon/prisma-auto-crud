@@ -24,12 +24,19 @@ export const genrateItemsRead = (prismaTableController) => {
             const {
                 skip = 0,
                 take = 100,
+                sort = 'id',
+                order = 'desc',
                 ...rest
             } = req.query
 
             // Note: offset pagination does not scale well
             // https://www.prisma.io/docs/concepts/components/prisma-client/pagination#-cons-of-offset-pagination
-            const query = {skip: Number(skip), take: Number(take), where: {...rest}}
+            const query = {
+                skip: Number(skip), 
+                take: Number(take), 
+                orderBy: [ {[sort]: order} ],
+                where: {...rest}
+            }
 
             const items = await prismaTableController.findMany(query)
 
@@ -70,10 +77,7 @@ export const genrateItemUpdate = (prismaTableController) => {
             const data = req.body
             const { id } = req.params
 
-            const query = {
-                where: { id: Number(id) },
-                data
-            }
+            const query = { where: { id: Number(id) }, data }
 
             const itemUpdate = await prismaTableController.update(query)
             res.send(itemUpdate)
