@@ -1,5 +1,5 @@
 {
-  "name": "prisma-auto-crud",
+  "name": "@moreillon/prisma-auto-crud",
   "type": "module",
   "version": "1.0.0",
   "description": "",

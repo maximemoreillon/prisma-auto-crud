@@ -1,27 +1,44 @@
-import express from 'express'
-import cors from 'cors'
+import { Router } from 'express'
+import { generateTableRouter } from './factories/router.js'
+import createHttpError from 'http-errors'
 
-import { prismaAutoCrud } from './primsaAutoCrud.js'
-import prismaClient from './prismaClient.js'
+// Note: Middleware cannot be async
+export const prismaAutoCrud = (prismaClient, opts = {}) => {
 
-const {
-    PORT = 7070
-} = process.env
+    const router = Router()
 
-
-const app = express()
-app.use(cors())
-app.use(express.json())
-
-app.get('/', (req, res) => {
-    res.send({
-        application_name: 'Prisma Auto CRUD example'
-    })
-})
-
-app.use(prismaAutoCrud(prismaClient))
+    prismaClient._getDmmf()
+        .then(dmmf => {
 
 
-app.listen(PORT, () => {
-    console.log(`[Express] Listening on port ${PORT}`)
-})
+            const models = dmmf.datamodel.models
+            const tables = models.map(model => model.name)
+
+            router.get('/models', (req, res) => {
+                res.send(models)
+            })
+
+            router.get('/models/:modelName', (req, res) => {
+                const { modelName } = req.params
+                const model = dmmf.modelMap[modelName]
+                if (!model) throw createHttpError(404, `Model ${modelName} does not exist`)
+                res.send(model)
+            })
+
+            router.get('/tables', (req, res) => {
+                // Redundant with above
+                res.send(tables)
+            })
+
+            // Generate routes and their controllers for each table
+            tables.forEach(tableName => {
+                const tableRoute = `/${tableName}`
+                const prismaTableController = prismaClient[tableName]
+                const tableRouter = generateTableRouter(prismaTableController)
+                router.use(tableRoute, tableRouter)
+
+            })
+        })
+    
+    return router
+}
