@@ -1,8 +1,7 @@
-import express from 'express'
-import cors from 'cors'
-
-import { prismaAutoCrud } from './'
-import prismaClient from './prismaClient.js'
+const express = require( 'express')
+const cors = require( 'cors')
+const { prismaAutoCrud } = require( './index.js')
+const prismaClient = require( './prismaClient.js')
 
 const {
     PORT = 7070

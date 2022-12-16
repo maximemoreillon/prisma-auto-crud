@@ -1,11 +1,10 @@
 {
   "name": "@moreillon/prisma-auto-crud",
-  "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "nodemon example.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

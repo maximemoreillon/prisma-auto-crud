@@ -1,5 +1,5 @@
 
-export const genrateItemCreate = (prismaTableController) => {
+exports.genrateItemCreate = (prismaTableController) => {
 
     return async (req, res, next) => {
 
@@ -14,7 +14,7 @@ export const genrateItemCreate = (prismaTableController) => {
     }
 }
 
-export const genrateItemsRead = (prismaTableController) => {
+exports.genrateItemsRead = (prismaTableController) => {
 
     return async (req, res, next) => {
 
@@ -50,7 +50,7 @@ export const genrateItemsRead = (prismaTableController) => {
     }
 }
 
-export const genrateItemRead = (prismaTableController) => {
+exports.genrateItemRead = (prismaTableController) => {
 
     // TODO: allow user to do includes
 
@@ -69,7 +69,7 @@ export const genrateItemRead = (prismaTableController) => {
 }
 
 
-export const genrateItemUpdate = (prismaTableController) => {
+exports.genrateItemUpdate = (prismaTableController) => {
 
     return async (req, res, next) => {
 
@@ -89,7 +89,7 @@ export const genrateItemUpdate = (prismaTableController) => {
 }
 
 
-export const genrateItemDelete = (prismaTableController) => {
+exports.genrateItemDelete = (prismaTableController) => {
 
     return async (req, res, next) => {
 

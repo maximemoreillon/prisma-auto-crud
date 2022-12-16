@@ -1,9 +1,9 @@
-import { Router } from 'express'
-import { generateTableRouter } from './factories/router.js'
-import createHttpError from 'http-errors'
+const { Router } = require('express')
+const { generateTableRouter } = require( './factories/router.js')
+const createHttpError = require( 'http-errors')
 
 // Note: Middleware cannot be async
-export const prismaAutoCrud = (prismaClient, opts = {}) => {
+exports.prismaAutoCrud = (prismaClient, opts = {}) => {
 
     const router = Router()
 
