@@ -3,7 +3,7 @@ const { generateTableRouter } = require( './factories/router.js')
 const createHttpError = require( 'http-errors')
 
 // Note: Middleware cannot be async
-exports.prismaAutoCrud = (prismaClient, opts = {}) => {
+module.exports = (prismaClient, opts = {}) => {
 
     const router = Router()
 

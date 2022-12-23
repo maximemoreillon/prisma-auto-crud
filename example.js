@@ -1,6 +1,6 @@
 const express = require( 'express')
 const cors = require( 'cors')
-const { prismaAutoCrud } = require( './index.js')
+const prismaAutoCrud = require( './index.js')
 const prismaClient = require( './prismaClient.js')
 
 const {
