@@ -16,7 +16,7 @@ This module is intended to be used as an Express middleware.
 
 ```
 const express = require( 'express')
-const prismaAutoCrud = require( './index.js')
+const prismaAutoCrud = require( '@moreillon/prisma-auto-crud')
 const { PrismaClient } = require('@prisma/client')
 
 const prismaClient = new PrismaClient()
