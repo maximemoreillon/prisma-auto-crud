@@ -1,6 +1,6 @@
 {
   "name": "@moreillon/prisma-auto-crud",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,8 @@
     "require": "./index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Maxime Moreillon",
+  "license": "MIT",
   "devDependencies": {
     "prisma": "^4.7.1"
   },
