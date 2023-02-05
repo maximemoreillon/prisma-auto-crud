@@ -1,6 +1,5 @@
 stages:
   - publish
-  - build
 
 variables:
   APPLICATION_NAME: auto-crud
@@ -12,7 +11,7 @@ image: moreillon/ci-dind
 services:
   - name: docker:19.03.12-dind
 
-publish:
+npm:
   image: node:16
   stage: publish
   tags:
@@ -21,8 +20,8 @@ publish:
     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
     - npm publish --access=public
 
-build:
-  stage: build
+container:
+  stage: publish
   tags:
     - dind
   only:
