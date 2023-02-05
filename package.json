@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon example.js",
+    "start": "prisma init && prisma db pull && prisma generate && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "exports": {

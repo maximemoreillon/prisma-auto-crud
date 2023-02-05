@@ -1,5 +1,16 @@
 stages:
   - publish
+  - build
+
+variables:
+  APPLICATION_NAME: auto-crud
+  CONTAINER_TAG: ${CI_COMMIT_SHORT_SHA}
+  CONTAINER_IMAGE: ${DOCKER_HUB_USERNAME}/${APPLICATION_NAME}
+  CONTAINER_IMAGE_TAGGED: ${CONTAINER_IMAGE}:${CONTAINER_TAG}
+
+image: moreillon/ci-dind
+services:
+  - name: docker:19.03.12-dind
 
 publish:
   image: node:16
@@ -9,3 +20,17 @@ publish:
   script:
     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
     - npm publish --access=public
+
+build:
+  stage: build
+  tags:
+    - dind
+  only:
+    - master
+  before_script:
+    - echo "${DOCKER_HUB_PASSWORD}" | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin;
+  script:
+    - docker build -t ${CONTAINER_IMAGE} .
+    - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE_TAGGED}
+    - docker push ${CONTAINER_IMAGE}
+    - docker push ${CONTAINER_IMAGE_TAGGED}
