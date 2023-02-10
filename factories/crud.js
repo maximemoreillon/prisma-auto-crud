@@ -42,12 +42,16 @@ exports.genrateItemsRead = (prismaTableController) => {
 }
 
 exports.genrateItemRead = (prismaTableController) => {
-  // TODO: allow user to do includes
-
   return async (req, res, next) => {
     try {
       const { id } = req.params
-      const query = { where: { id: Number(id) } }
+
+      let { includes = [] } = req.query
+      if (typeof inluces === "string") includes = [includes]
+
+      const query = { where: { id: Number(id) }, include: {} }
+      if (includes.length) includes.forEach((i) => (query.include[i] = true))
+
       const item = await prismaTableController.findUnique(query)
       res.send(item)
     } catch (error) {
