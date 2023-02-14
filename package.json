@@ -1,8 +1,8 @@
 {
   "name": "@moreillon/prisma-auto-crud",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "prisma init && prisma db pull && prisma generate && node server.js",

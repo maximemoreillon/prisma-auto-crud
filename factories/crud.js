@@ -47,10 +47,14 @@ exports.genrateItemRead = (prismaTableController) => {
       const { id } = req.params
 
       let { includes = [] } = req.query
-      if (typeof inluces === "string") includes = [includes]
+      if (typeof includes === "string") includes = [includes]
 
-      const query = { where: { id: Number(id) }, include: {} }
-      if (includes.length) includes.forEach((i) => (query.include[i] = true))
+      const query = { where: { id: Number(id) } }
+      if (includes.length)
+        query.include = includes.reduce(
+          (prev, i) => ({ ...prev, [i]: true }),
+          {}
+        )
 
       const item = await prismaTableController.findUnique(query)
       res.send(item)
