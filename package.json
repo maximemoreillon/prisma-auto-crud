@@ -1,6 +1,6 @@
 {
   "name": "@moreillon/prisma-auto-crud",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "main": "server.js",
   "scripts": {
