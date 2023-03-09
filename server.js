@@ -17,12 +17,6 @@ app.get("/", (req, res) => {
   })
 })
 
-// Endpoint to kill process, used for restart in K8s
-app.post('/exit', (req, res) => {
-  res.send('OK')
-  process.exit(0)
-})
-
 app.use(prismaAutoCrud(prismaClient))
 
 app.listen(PORT, () => {
