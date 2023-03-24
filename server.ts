@@ -2,9 +2,10 @@
 
 import express from "express"
 import cors from "cors"
-import prismaAutoCrud from "./index.js"
-import prismaClient from "./prismaClient.js"
+import prismaAutoCrud from "./index"
+import prismaClient from "./prismaClient"
 import dotenv from "dotenv"
+import { Response, Request } from "express"
 
 dotenv.config()
 
@@ -14,7 +15,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send({
     application_name: "Prisma Auto CRUD",
   })
