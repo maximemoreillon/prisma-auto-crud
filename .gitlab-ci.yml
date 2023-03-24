@@ -14,6 +14,8 @@ services:
 npm:
   image: node:16
   stage: publish
+  only:
+    - master
   tags:
     - moreillon
   before_script:
