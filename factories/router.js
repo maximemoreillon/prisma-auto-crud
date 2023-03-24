@@ -1,25 +1,25 @@
-const { Router } = require( 'express')
+const { Router } = require("express")
 const {
-    genrateItemCreate,
-    genrateItemsRead,
-    genrateItemRead,
-    genrateItemUpdate,
-    genrateItemDelete
-} = require( './crud.js')
-
-
+  genrateItemCreate,
+  genrateItemsRead,
+  genrateItemRead,
+  genrateItemUpdate,
+  genrateItemDelete,
+} = require("./crud.js")
 
 exports.generateTableRouter = (prismaTableController) => {
-    const router = Router()
+  const router = Router()
 
-    router.route('/')
-        .post(genrateItemCreate(prismaTableController))
-        .get(genrateItemsRead(prismaTableController))
+  router
+    .route("/")
+    .post(genrateItemCreate(prismaTableController))
+    .get(genrateItemsRead(prismaTableController))
 
-    router.route('/:id')
-        .get(genrateItemRead(prismaTableController))
-        .put(genrateItemUpdate(prismaTableController))
-        .delete(genrateItemDelete(prismaTableController))
+  router
+    .route("/:primaryKey")
+    .get(genrateItemRead(prismaTableController))
+    .put(genrateItemUpdate(prismaTableController))
+    .delete(genrateItemDelete(prismaTableController))
 
-    return router
+  return router
 }

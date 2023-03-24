@@ -4,6 +4,9 @@ const express = require("express")
 const cors = require("cors")
 const prismaAutoCrud = require("./index.js")
 const prismaClient = require("./prismaClient.js")
+const dotenv = require("dotenv")
+
+dotenv.config()
 
 const { PORT = 80 } = process.env
 

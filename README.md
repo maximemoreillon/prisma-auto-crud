@@ -37,13 +37,8 @@ app.listen(PORT, () => {
 })
 ```
 
+**Important**: Currently, the primary key of each table must be an integer (or serial) named "id"
+
 ## Development notes
 
 - using [Prisma generators](https://github.com/YassinEldeeb/create-prisma-generator) could be a better approach
-
-### To do:
-
-- [x] Pagination
-- [x] Sorting, ordering
-- [x] Query filters
-- And more...
