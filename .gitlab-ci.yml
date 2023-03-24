@@ -14,10 +14,15 @@ services:
 npm:
   image: node:16
   stage: publish
+  only:
+    - master
   tags:
     - moreillon
-  script:
+  before_script:
     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+  script:
+    - npm i
+    - npm run compile
     - npm publish --access=public
 
 container:

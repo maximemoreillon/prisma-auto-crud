@@ -1,21 +1,21 @@
 // This file is the middleware
-const { Router } = require("express")
-const { generateTableRouter } = require("./factories/router.js")
-const createHttpError = require("http-errors")
-
+import { Router, Request, Response } from "express"
+import { generateTableRouter } from "./factories/router"
+import createHttpError from "http-errors"
 // Note: Middleware cannot be async
-module.exports = (prismaClient, opts = {}) => {
+// TODO: find types
+const middleware = (prismaClient: any, opts = {}) => {
   const router = Router()
 
-  prismaClient._getDmmf().then((dmmf) => {
+  prismaClient._getDmmf().then((dmmf: any) => {
     const models = dmmf.datamodel.models
-    const tables = models.map((model) => model.name)
+    const tables = models.map((model: any) => model.name)
 
-    router.get("/models", (req, res) => {
+    router.get("/models", (req: Request, res: Response) => {
       res.send(models)
     })
 
-    router.get("/models/:modelName", (req, res) => {
+    router.get("/models/:modelName", (req: Request, res: Response) => {
       const { modelName } = req.params
       const model = dmmf.modelMap[modelName]
       if (!model)
@@ -23,13 +23,13 @@ module.exports = (prismaClient, opts = {}) => {
       res.send(model)
     })
 
-    router.get("/tables", (req, res) => {
+    router.get("/tables", (req: Request, res: Response) => {
       // Redundant with above
       res.send(tables)
     })
 
     // Generate routes and their controllers for each table
-    tables.forEach((tableName) => {
+    tables.forEach((tableName: string) => {
       const tableRoute = `/${tableName}`
       const prismaTableController = prismaClient[tableName]
       const tableRouter = generateTableRouter(prismaTableController)
@@ -39,3 +39,5 @@ module.exports = (prismaClient, opts = {}) => {
 
   return router
 }
+
+export = middleware
