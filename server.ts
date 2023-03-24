@@ -1,10 +1,10 @@
 // This file is used in the Docker container
 
-const express = require("express")
-const cors = require("cors")
-const prismaAutoCrud = require("./index.js")
-const prismaClient = require("./prismaClient.js")
-const dotenv = require("dotenv")
+import express from "express"
+import cors from "cors"
+import prismaAutoCrud from "./index.js"
+import prismaClient from "./prismaClient.js"
+import dotenv from "dotenv"
 
 dotenv.config()
 

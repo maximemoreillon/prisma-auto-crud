@@ -1,13 +1,13 @@
-const { Router } = require("express")
-const {
+import { Router } from "express"
+import {
   genrateItemCreate,
   genrateItemsRead,
   genrateItemRead,
   genrateItemUpdate,
   genrateItemDelete,
-} = require("./crud.js")
+} from "./crud"
 
-exports.generateTableRouter = (prismaTableController) => {
+export const generateTableRouter = (prismaTableController: any) => {
   const router = Router()
 
   router
