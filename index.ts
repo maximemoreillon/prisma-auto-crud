@@ -2,6 +2,7 @@
 import { Router, Request, Response } from "express"
 import { generateTableRouter } from "./factories/router"
 import createHttpError from "http-errors"
+
 // Note: Middleware cannot be async
 // TODO: find types
 const middleware = (prismaClient: any, opts = {}) => {
@@ -9,7 +10,6 @@ const middleware = (prismaClient: any, opts = {}) => {
 
   prismaClient._getDmmf().then((dmmf: any) => {
     const models = dmmf.datamodel.models
-    const tables = models.map((model: any) => model.name)
 
     router.get("/models", (req: Request, res: Response) => {
       res.send(models)
@@ -23,15 +23,17 @@ const middleware = (prismaClient: any, opts = {}) => {
       res.send(model)
     })
 
-    router.get("/tables", (req: Request, res: Response) => {
-      // Redundant with above
-      res.send(tables)
-    })
-
     // Generate routes and their controllers for each table
-    tables.forEach((tableName: string) => {
-      const tableRoute = `/${tableName}`
-      const prismaTableController = prismaClient[tableName]
+    models.forEach((model: any) => {
+      const { name, fields } = model
+      const tableRoute = `/${name}`
+      const prismaTableController = prismaClient[name]
+
+      // Adding the field used as id
+      prismaTableController.primaryKeyField = fields.find(
+        ({ isId }: any) => isId
+      )?.name
+
       const tableRouter = generateTableRouter(prismaTableController)
       router.use(tableRoute, tableRouter)
     })

@@ -1,7 +1,5 @@
 import { Response, Request, NextFunction } from "express"
 
-// FIXME: stop using "id" as primary key
-
 export const genrateItemCreate =
   (prismaTableController: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
@@ -49,12 +47,13 @@ export const genrateItemRead =
   (prismaTableController: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const { primaryKeyField } = prismaTableController
       const { primaryKey } = req.params
       let { includes = [] } = req.query
 
       if (typeof includes === "string") includes = [includes]
 
-      const query: any = { where: { id: Number(primaryKey) } }
+      const query: any = { where: { [primaryKeyField]: Number(primaryKey) } }
       if (includes.length)
         //@ts-ignore
         query.include = includes.reduce(
@@ -73,10 +72,11 @@ export const genrateItemUpdate =
   (prismaTableController: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = req.body
+      const { primaryKeyField } = prismaTableController
       const { primaryKey } = req.params
+      const data = req.body
 
-      const query = { where: { id: Number(primaryKey) }, data }
+      const query = { where: { [primaryKeyField]: Number(primaryKey) }, data }
 
       const itemUpdate = await prismaTableController.update(query)
       res.send(itemUpdate)
@@ -89,8 +89,9 @@ export const genrateItemDelete =
   (prismaTableController: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const { primaryKeyField } = prismaTableController
       const { primaryKey } = req.params
-      const query = { where: { id: Number(primaryKey) } }
+      const query = { where: { [primaryKeyField]: Number(primaryKey) } }
       const itemDelete = await prismaTableController.delete(query)
       res.send(itemDelete)
     } catch (error) {
