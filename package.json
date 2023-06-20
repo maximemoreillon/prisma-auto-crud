@@ -1,16 +1,14 @@
 {
   "name": "@moreillon/prisma-auto-crud",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
-  "main": "server.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "nodemon server.ts",
     "compile": "tsc",
     "start": "prisma init && prisma db pull && prisma generate && ts-node server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "exports": {
-    "require": "./index.js"
   },
   "keywords": [],
   "author": "Maxime Moreillon",
