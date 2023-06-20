@@ -42,4 +42,5 @@ const middleware = (prismaClient: any, opts = {}) => {
   return router
 }
 
-export = middleware
+// export = middleware
+export default middleware
