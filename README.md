@@ -14,31 +14,21 @@ npm install @moreillon/prisma-auto-crud
 
 This module is intended to be used as an Express middleware.
 
-```
-const express = require( 'express')
-const prismaAutoCrud = require( '@moreillon/prisma-auto-crud')
-const { PrismaClient } = require('@prisma/client')
+```typescript
+import express from "express"
+import { PrismaClient } from "@prisma/client"
+import autoCrud from "@moreillon/prisma-auto-crud"
 
 const prismaClient = new PrismaClient()
 
-const {
-    PORT = 7070
-} = process.env
-
+const { PORT = 7070 } = process.env
 
 const app = express()
 app.use(express.json())
 
-app.use(prismaAutoCrud(prismaClient))
-
+app.use(autoCrud(prismaClient))
 
 app.listen(PORT, () => {
-    console.log(`[Express] Listening on port ${PORT}`)
+  console.log(`[Express] Listening on port ${PORT}`)
 })
 ```
-
-**Important**: Currently, the primary key of each table must be an integer (or serial) named "id"
-
-## Development notes
-
-- using [Prisma generators](https://github.com/YassinEldeeb/create-prisma-generator) could be a better approach
