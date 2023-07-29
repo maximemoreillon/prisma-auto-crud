@@ -21,21 +21,28 @@ export const genrateItemsRead =
         take = 100,
         sort = "id",
         order = "desc",
+        search,
+        include,
         ...rest
-      } = req.query
+      } = req.query as any
 
       // Note: offset pagination does not scale well
       // https://www.prisma.io/docs/concepts/components/prisma-client/pagination#-cons-of-offset-pagination
       const query = {
+        where: { ...rest, ...(search ? JSON.parse(search) : undefined) },
+      }
+
+      const fullQuery = {
+        ...query,
         skip: Number(skip),
         take: Number(take),
         orderBy: [{ [sort as string]: order }],
-        where: { ...rest },
+        include: include ? JSON.parse(include) : undefined,
       }
 
-      const items = await prismaTableController.findMany(query)
+      const items = await prismaTableController.findMany(fullQuery)
 
-      const total = await prismaTableController.count({ where: { ...rest } })
+      const total = await prismaTableController.count(query)
 
       res.send({ skip, take, total, items })
     } catch (error) {
