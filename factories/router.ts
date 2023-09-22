@@ -18,7 +18,7 @@ export const generateTableRouter = (prismaTableController: any) => {
   router
     .route("/:primaryKey")
     .get(genrateItemRead(prismaTableController))
-    .put(genrateItemUpdate(prismaTableController))
+    .patch(genrateItemUpdate(prismaTableController))
     .delete(genrateItemDelete(prismaTableController))
 
   return router
