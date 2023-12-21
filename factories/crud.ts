@@ -19,8 +19,8 @@ export const genrateItemsRead =
       const {
         skip = 0,
         take = 100,
-        sort = "id",
-        order = "desc",
+        sort,
+        order,
         search,
         include,
         ...rest

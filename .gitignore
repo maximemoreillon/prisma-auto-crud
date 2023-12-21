@@ -1,8 +1,4 @@
-node_modules
-# Keep environment variables out of version control
+**/node_modules
+**/prisma
+**/dist
 .env
-prisma
-dist
-schema.prisma
-prisma/
-prisma/*

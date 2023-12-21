@@ -7,7 +7,7 @@ import {
   genrateItemDelete,
 } from "./crud"
 
-export const generateTableRouter = (prismaTableController: any) => {
+export const generateTableRouter : any = (prismaTableController: any) => {
   const router = Router()
 
   router
@@ -18,7 +18,7 @@ export const generateTableRouter = (prismaTableController: any) => {
   router
     .route("/:primaryKey")
     .get(genrateItemRead(prismaTableController))
-    .patch(genrateItemUpdate(prismaTableController))
+    .put(genrateItemUpdate(prismaTableController))
     .delete(genrateItemDelete(prismaTableController))
 
   return router
