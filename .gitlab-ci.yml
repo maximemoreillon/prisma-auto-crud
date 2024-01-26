@@ -18,7 +18,7 @@ npm:
   only:
     - tags
   tags:
-    - moreillon
+    - dind
   before_script:
     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
   script:
@@ -31,7 +31,7 @@ container:
   only:
     - tags
   tags:
-    - moreillon
+    - dind
   before_script:
     - echo "${DOCKER_HUB_PASSWORD}" | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin;
   script:
