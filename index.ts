@@ -12,7 +12,7 @@ const middleware = (prismaClient: PrismaClient, opts = {}) => {
   const modelsMap = prismaClient._runtimeDataModel.models
   const modelNames = Object.keys(modelsMap)
 
-  router.get("/models", (req: Request, res: Response) => {
+  router.get("/models", (_, res: Response) => {
     res.send(modelNames)
   })
 

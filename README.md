@@ -1,6 +1,10 @@
-# Prisma Auto CRUD
+# Auto CRUD
 
-An express middleware that generates routes and CRUD controllers for every table defined in a prisma schema.
+At its core, Auto CRUD is an express middleware that generates routes and CRUD controllers for every table defined in a prisma schema.
+As such, it can be integrated in an existing Express app to kickstart a project involving CRUD.
+On the other hand, if the functionalities of Auto CRUD can be used as is, it is also provided as a Docker container.
+
+## Usage as a module
 
 ## Install
 
