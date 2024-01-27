@@ -6,7 +6,7 @@ On the other hand, if the functionalities of Auto CRUD can be used as is, it is 
 
 ## Usage as a module
 
-## Install
+### Install
 
 This module can be installed using NPM:
 
@@ -14,7 +14,7 @@ This module can be installed using NPM:
 npm install @moreillon/prisma-auto-crud
 ```
 
-## Usage
+### Usage
 
 This module is intended to be used as an Express middleware.
 
@@ -35,4 +35,15 @@ app.use(autoCrud(prismaClient))
 app.listen(PORT, () => {
   console.log(`[Express] Listening on port ${PORT}`)
 })
+```
+
+## Usage as a Docker container
+
+If Auto CRUD does not need any additional customization, it can be deployed as a Docker container.
+
+```bash
+docker run \
+-e DATABASE_URL="postgresql://user:pass@localhost:30432/db?schema=public" \
+-p 8080:80 \
+moreillon/auto-crud
 ```
