@@ -3,7 +3,11 @@ import { expect, test } from "bun:test"
 import request from "supertest"
 
 test("GET /", async () => {
-  const response = await request(app).get(`/`)
-  console.log(response)
-  expect(response.status).toBe(200)
+  const { status } = await request(app).get(`/`)
+  expect(status).toBe(200)
+})
+
+test("GET /models", async () => {
+  const { body } = await request(app).get(`/models`)
+  expect(body[0]).toBe("user")
 })
