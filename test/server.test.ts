@@ -29,7 +29,7 @@ test("GET /user", async () => {
 })
 
 test("GET /user/:id", async () => {
-  const { status } = await request(app).get(`/user/:${id}`)
+  const { status } = await request(app).get(`/user/${id}`)
   expect(status).toBe(200)
 })
 
