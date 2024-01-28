@@ -8,7 +8,8 @@
     "compile": "tsc",
     "dev": "bun run --watch server.ts",
     "docker-start": "prisma db pull && prisma generate && bun run swagger.ts && bun run ./server.ts",
-    "ci-test": "prisma db push && prisma generate && bun run swagger.ts && bun test"
+    "ci-test": "prisma db push && prisma generate && bun run swagger.ts && bun test",
+    "ci-coverage": "prisma db push && prisma generate && bun run swagger.ts && bun test --coverage"
   },
   "keywords": [],
   "author": "Maxime Moreillon",

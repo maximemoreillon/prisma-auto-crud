@@ -35,7 +35,7 @@ test:
   stage: test
   tags:
     - dind
-  # coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   before_script:
     - echo "${DOCKER_HUB_PASSWORD}" | docker login --username ${DOCKER_HUB_USERNAME} --password-stdin
     # Creating network for TDD
@@ -60,10 +60,9 @@ test:
       --name tdd-app
       --network ${TEST_NETWORK}
       -e DATABASE_URL=postgresql://postgres:${TEST_DB_PASSWORD}@${TEST_DB}:5432/${TEST_DB}?schema=public
-      ${CONTAINER_IMAGE_TEST} bun run ci-test
+      ${CONTAINER_IMAGE_TEST} bun run ci-coverage
 
 ## Release
-
 container:
   stage: release
   only:
