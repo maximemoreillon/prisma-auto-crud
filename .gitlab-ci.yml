@@ -61,7 +61,10 @@ test:
       --network ${TEST_NETWORK}
       -e DATABASE_URL=postgresql://postgres:${TEST_DB_PASSWORD}@${TEST_DB}:30432/${TEST_DB}?schema=public
       ${CONTAINER_IMAGE_TEST}
-      bunx prisma init && bunx prisma db pull && bunx prisma generate && bun test
+      bunx prisma init 
+      && bunx prisma db push 
+      && bunx prisma generate 
+      && bun test
 
 ## Release
 
