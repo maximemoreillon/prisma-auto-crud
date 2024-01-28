@@ -1,6 +1,8 @@
 # Auto CRUD
 
-At its core, Auto CRUD is an express middleware that generates routes and CRUD controllers for every table defined in a prisma schema.
+[![coverage report](https://gitlab.com/moreillon_ci/moreillon_npm/prisma-auto-crud/badges/master/coverage.svg)](https://gitlab.com/moreillon_ci/moreillon_npm/prisma-auto-crud/-/commits/master)
+
+At its core, Auto CRUD is an express middleware that generates routes and CRUD controllers for every table defined in a Prisma schema.
 As such, it can be integrated in an existing Express app to kickstart a project involving CRUD.
 On the other hand, if the functionalities of Auto CRUD can be used as is, it is also provided as a Docker container.
 
