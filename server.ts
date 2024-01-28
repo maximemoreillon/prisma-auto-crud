@@ -14,6 +14,8 @@ import swaggerDocument from "./swagger-output.json"
 import { Response } from "express"
 import { version, author } from "./package.json"
 
+console.log(`Auto CRUD v${version}`)
+
 const { PORT = 80 } = process.env
 
 export const app = express()
