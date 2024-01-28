@@ -43,7 +43,7 @@ If Auto CRUD does not need any additional customization, it can be deployed as a
 
 ```bash
 docker run \
--e DATABASE_URL="postgresql://user:pass@localhost:30432/db?schema=public" \
+-e DATABASE_URL="postgresql://user:pass@localhost:5432/db?schema=public" \
 -p 8080:80 \
 moreillon/auto-crud
 ```
