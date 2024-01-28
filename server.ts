@@ -7,14 +7,19 @@ import "express-async-errors"
 import cors from "cors"
 import prismaAutoCrud from "./index"
 import prismaClient from "./prismaClient"
+
+import swaggerUi from "swagger-ui-express"
+import swaggerDocument from "./swagger-output.json"
+
 import { Response } from "express"
 import { version, author } from "./package.json"
 
 const { PORT = 80 } = process.env
 
-const app = express()
+export const app = express()
 app.use(cors())
 app.use(express.json())
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.get("/", (_, res: Response) => {
   res.send({
