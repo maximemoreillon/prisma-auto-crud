@@ -23,6 +23,16 @@ test("POST /user", async () => {
   expect(status).toBe(200)
 })
 
+test("GET /user", async () => {
+  const { body } = await request(app).get(`/user`)
+  expect(body.items.length).toBe(1)
+})
+
+test("GET /user/:id", async () => {
+  const { status } = await request(app).get(`/user/:${id}`)
+  expect(status).toBe(200)
+})
+
 test("DELETE /user/:id", async () => {
   const { status } = await request(app).delete(`/user/${id}`)
   expect(status).toBe(200)
