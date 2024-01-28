@@ -15,8 +15,8 @@ COPY package*.json ./
 RUN bun install
 COPY . .
 
-RUN bun run swagger-autogen
-RUN bunx prisma generate
+# Probably not needed
+# RUN bunx prisma generate
 
 EXPOSE 80
 CMD [ "bun", "run", "docker-start" ]

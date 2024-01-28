@@ -7,8 +7,7 @@
   "scripts": {
     "compile": "tsc",
     "dev": "bun run --watch server.ts",
-    "docker-start": "prisma init && prisma db pull && prisma generate && bun run ./server.ts",
-    "swagger-autogen": "ts-node swagger.ts"
+    "docker-start": "prisma init && prisma db pull && prisma generate && bun run swagger.ts && bun run ./server.ts"
   },
   "keywords": [],
   "author": "Maxime Moreillon",

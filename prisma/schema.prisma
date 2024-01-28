@@ -7,31 +7,62 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model equipment {
-  id                 Int                  @id(map: "pk_equipment") @default(autoincrement())
-  name               String               @db.VarChar(100)
-  description        String?              @db.VarChar
-  photo_link         String?              @db.VarChar
-  equipment_checkout equipment_checkout[]
+model challenge {
+  created_at     DateTime         @default(dbgenerated("CURRENT_TIMESTAMP(0)")) @db.Timestamp(6)
+  id             Int              @id @default(autoincrement())
+  title          String?          @db.VarChar
+  description    String?          @db.VarChar
+  challenge_type String?          @db.VarChar
+  sub_challenges sub_challenges[]
 }
 
-model equipment_checkout {
-  id           Int       @id(map: "pk_equipment_checkout") @default(autoincrement())
-  description  String?   @db.VarChar
-  request_date DateTime? @default(now()) @db.Date
-  user_id      Int
-  equipment_id Int
-  return_date  DateTime?
-  equipment    equipment @relation(fields: [equipment_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_equipment_checkout_equipment")
-  user         user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_equipment_checkout_user")
+model my_challenges {
+  created_at        DateTime        @default(dbgenerated("CURRENT_TIMESTAMP(0)")) @db.Timestamp(6)
+  id                Int             @id @default(autoincrement())
+  is_complete       Boolean?
+  sub_challenges_id Int?
+  sub_challenges    sub_challenges? @relation(fields: [sub_challenges_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model user {
-  id                 Int                  @id(map: "pk_tbl") @default(autoincrement())
-  name               String               @db.VarChar(100)
-  department         String?              @db.VarChar
-  is_admin           Boolean
-  email              String               @unique @db.VarChar
-  password           String               @db.VarChar
-  equipment_checkout equipment_checkout[]
+model my_quests {
+  created_at  DateTime @default(dbgenerated("CURRENT_TIMESTAMP(0)")) @db.Timestamp(6)
+  id          Int      @id @default(autoincrement())
+  is_complete Boolean?
+  quest_id    Int?
+  quests      quests?  @relation(fields: [quest_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model quests {
+  created_at  DateTime    @default(dbgenerated("CURRENT_TIMESTAMP(0)")) @db.Timestamp(6)
+  id          Int         @id @default(autoincrement())
+  title       String?     @db.VarChar
+  description String?     @db.VarChar
+  location    String?     @db.VarChar
+  rewards     String?     @db.VarChar
+  companion   String?     @db.VarChar
+  quest_type  String      @db.VarChar
+  my_quests   my_quests[]
+}
+
+model sub_challenges {
+  created_at        DateTime        @default(dbgenerated("CURRENT_TIMESTAMP(0)")) @db.Timestamp(6)
+  id                Int             @id @default(autoincrement())
+  description       String          @db.VarChar
+  rewards           String          @db.VarChar
+  main_challenge_id Int?
+  my_challenges     my_challenges[]
+  challenge         challenge?      @relation(fields: [main_challenge_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum Role {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+enum TokenType {
+  ACCESS
+  REFRESH
+  RESET_PASSWORD
+  VERIFY_EMAIL
 }
