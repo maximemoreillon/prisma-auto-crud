@@ -17,7 +17,7 @@ test("GET /models", async () => {
 test("POST /user", async () => {
   const { status, body } = await request(app)
     .post(`/user`)
-    .send({ name: "john" })
+    .send({ name: "John" })
 
   id = body.id
   expect(status).toBe(200)
@@ -30,6 +30,13 @@ test("GET /user", async () => {
 
 test("GET /user/:id", async () => {
   const { status } = await request(app).get(`/user/${id}`)
+  expect(status).toBe(200)
+})
+
+test("PATCH /user/:id", async () => {
+  const { status } = await request(app)
+    .patch(`/user/${id}`)
+    .send({ name: "Jack" })
   expect(status).toBe(200)
 })
 
