@@ -20,10 +20,10 @@ test("POST /user", async () => {
     .send({ name: "john" })
 
   id = body.id
-  expect(status).toBe()
+  expect(status).toBe(200)
 })
 
 test("DELETE /user/:id", async () => {
   const { status } = await request(app).delete(`/user/${id}`)
-  expect(status).toBe()
+  expect(status).toBe(200)
 })
