@@ -16,13 +16,16 @@ import { version, author } from "./package.json"
 
 console.log(`Auto CRUD v${version}`)
 
-const { PORT = 80 } = process.env
+const { PORT = 80, READ_ONLY } = process.env
+
+const options = {
+  readonly: !!READ_ONLY,
+}
 
 export const app = express()
 app.use(cors())
 app.use(express.json())
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-
 app.get("/", (_, res: Response) => {
   res.send({
     application: "Auto CRUD",
@@ -30,9 +33,7 @@ app.get("/", (_, res: Response) => {
     author,
   })
 })
-
-app.use(prismaAutoCrud(prismaClient))
-
+app.use(prismaAutoCrud(prismaClient, options))
 app.listen(PORT, () => {
   console.log(`Express Listening on port ${PORT}`)
 })

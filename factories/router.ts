@@ -7,16 +7,17 @@ import {
   generateItemDelete,
 } from "./crud"
 
-const { READ_ONLY } = process.env
-
-export const generateTableRouter = (prismaTableController: any) => {
+export const generateTableRouter = (
+  prismaTableController: any,
+  options: any
+) => {
   const router = Router()
 
   router.route("/").get(generateItemsRead(prismaTableController))
 
   router.route("/:primaryKey").get(generateItemRead(prismaTableController))
 
-  if (!READ_ONLY) {
+  if (!options.readonly) {
     router.route("/").post(generateItemCreate(prismaTableController))
     router
       .route("/:primaryKey")

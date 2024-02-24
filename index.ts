@@ -6,6 +6,9 @@ import { PrismaClient } from "@prisma/client"
 
 // Note: Middleware cannot be async
 const middleware = (prismaClient: PrismaClient, opts = {}) => {
+  const options = {
+    ...opts,
+  }
   const router = Router()
 
   // @ts-ignore
@@ -34,7 +37,7 @@ const middleware = (prismaClient: PrismaClient, opts = {}) => {
       ({ isId }: any) => isId
     )?.name
 
-    const tableRouter = generateTableRouter(prismaTableController)
+    const tableRouter = generateTableRouter(prismaTableController, options)
     router.use(tableRoute, tableRouter)
   })
 
