@@ -1,6 +1,7 @@
 import { app } from "../server"
-import { expect, test } from "bun:test"
 import request from "supertest"
+// @ts-ignore
+import { expect, test } from "bun:test"
 
 let id: string
 

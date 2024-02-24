@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express"
 
-export const genrateItemCreate =
+export const generateItemCreate =
   (prismaTableController: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -12,7 +12,7 @@ export const genrateItemCreate =
     }
   }
 
-export const genrateItemsRead =
+export const generateItemsRead =
   (prismaTableController: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -50,7 +50,7 @@ export const genrateItemsRead =
     }
   }
 
-export const genrateItemRead =
+export const generateItemRead =
   (prismaTableController: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -75,7 +75,7 @@ export const genrateItemRead =
     }
   }
 
-export const genrateItemUpdate =
+export const generateItemUpdate =
   (prismaTableController: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -92,7 +92,7 @@ export const genrateItemUpdate =
     }
   }
 
-export const genrateItemDelete =
+export const generateItemDelete =
   (prismaTableController: any) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {

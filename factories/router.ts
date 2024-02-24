@@ -1,10 +1,10 @@
 import { Router } from "express"
 import {
-  genrateItemCreate,
-  genrateItemsRead,
-  genrateItemRead,
-  genrateItemUpdate,
-  genrateItemDelete,
+  generateItemCreate,
+  generateItemsRead,
+  generateItemRead,
+  generateItemUpdate,
+  generateItemDelete,
 } from "./crud"
 
 const { READ_ONLY } = process.env
@@ -12,16 +12,16 @@ const { READ_ONLY } = process.env
 export const generateTableRouter = (prismaTableController: any) => {
   const router = Router()
 
-  router.route("/").get(genrateItemsRead(prismaTableController))
+  router.route("/").get(generateItemsRead(prismaTableController))
 
-  router.route("/:primaryKey").get(genrateItemRead(prismaTableController))
+  router.route("/:primaryKey").get(generateItemRead(prismaTableController))
 
   if (!READ_ONLY) {
-    router.route("/").post(genrateItemCreate(prismaTableController))
+    router.route("/").post(generateItemCreate(prismaTableController))
     router
       .route("/:primaryKey")
-      .patch(genrateItemUpdate(prismaTableController))
-      .delete(genrateItemDelete(prismaTableController))
+      .patch(generateItemUpdate(prismaTableController))
+      .delete(generateItemDelete(prismaTableController))
   } else {
     console.log(`Running in read-only mode`)
   }
