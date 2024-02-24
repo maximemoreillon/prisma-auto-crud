@@ -8,8 +8,6 @@ datasource db {
 }
 
 model user {
-  id             Int              @id @default(autoincrement())
-  name    String?          @db.VarChar
-
+  id   Int     @id @default(autoincrement())
+  name String? @db.VarChar
 }
-
