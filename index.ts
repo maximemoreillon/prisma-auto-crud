@@ -1,18 +1,45 @@
-// This file is the middleware
+// This file exports the middleware
 import { Router, Request, Response } from "express"
 import { generateTableRouter } from "./factories/router"
-import createHttpError from "http-errors"
 import { PrismaClient } from "@prisma/client"
+import createHttpError from "http-errors"
+
+interface ModelField {
+  isId: boolean
+  name: string
+}
+
+interface Model {
+  fields: ModelField[]
+}
+
+interface ExtendedPrismaClient extends PrismaClient {
+  _runtimeDataModel: {
+    models: { [index: string]: Model }
+  }
+}
+
+// TODO: extend generic Delegate
+export interface TableController {
+  primaryKeyField: string
+  create: Function
+  findMany: Function
+  findUnique: Function
+  update: Function
+  delete: Function
+  count: Function
+}
 
 // Note: Middleware cannot be async
-const middleware = (prismaClient: PrismaClient, opts = {}) => {
+export default (prismaClient: ExtendedPrismaClient, opts = {}) => {
   const options = {
+    // Defaults come here
     ...opts,
   }
   const router = Router()
 
-  // @ts-ignore
   const modelsMap = prismaClient._runtimeDataModel.models
+
   const modelNames = Object.keys(modelsMap)
 
   router.get("/models", (_, res: Response) => {
@@ -27,15 +54,14 @@ const middleware = (prismaClient: PrismaClient, opts = {}) => {
   })
 
   // Generate routes and their controllers for each table
-  modelNames.forEach((name: any) => {
+  modelNames.forEach((name) => {
     const { fields } = modelsMap[name]
     const tableRoute = `/${name}`
-    const prismaTableController: any = prismaClient[name]
+
+    const prismaTableController = (prismaClient as any)[name]
 
     // Adding the field used as id
-    prismaTableController.primaryKeyField = fields.find(
-      ({ isId }: any) => isId
-    )?.name
+    prismaTableController.primaryKeyField = fields.find((f) => f.isId)?.name
 
     const tableRouter = generateTableRouter(prismaTableController, options)
     router.use(tableRoute, tableRouter)
@@ -43,5 +69,3 @@ const middleware = (prismaClient: PrismaClient, opts = {}) => {
 
   return router
 }
-
-export default middleware

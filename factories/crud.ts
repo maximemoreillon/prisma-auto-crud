@@ -1,7 +1,8 @@
 import { Response, Request, NextFunction } from "express"
+import { TableController } from ".."
 
 export const generateItemCreate =
-  (prismaTableController: any) =>
+  (prismaTableController: TableController) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body
@@ -13,7 +14,7 @@ export const generateItemCreate =
   }
 
 export const generateItemsRead =
-  (prismaTableController: any) =>
+  (prismaTableController: TableController) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const {
@@ -51,7 +52,7 @@ export const generateItemsRead =
   }
 
 export const generateItemRead =
-  (prismaTableController: any) =>
+  (prismaTableController: TableController) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { primaryKeyField } = prismaTableController
@@ -76,7 +77,7 @@ export const generateItemRead =
   }
 
 export const generateItemUpdate =
-  (prismaTableController: any) =>
+  (prismaTableController: TableController) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { primaryKeyField } = prismaTableController
@@ -93,7 +94,7 @@ export const generateItemUpdate =
   }
 
 export const generateItemDelete =
-  (prismaTableController: any) =>
+  (prismaTableController: TableController) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { primaryKeyField } = prismaTableController
