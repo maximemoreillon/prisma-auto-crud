@@ -7,16 +7,15 @@ import "express-async-errors"
 import cors from "cors"
 import prismaAutoCrud from "./index"
 import prismaClient from "./prismaClient"
-
+import auth from "@moreillon/express_identification_middleware"
 import swaggerUi from "swagger-ui-express"
 import swaggerDocument from "./swagger-output.json"
-
 import { Response } from "express"
 import { version, author } from "./package.json"
 
 console.log(`Auto CRUD v${version}`)
 
-const { PORT = 80, READ_ONLY } = process.env
+const { PORT = 80, READ_ONLY, IDENTIFICATION_URL } = process.env
 
 const options = {
   readonly: !!READ_ONLY,
@@ -31,8 +30,13 @@ app.get("/", (_, res: Response) => {
     application: "Auto CRUD",
     version,
     author,
+    options,
+    identifcation_url: IDENTIFICATION_URL,
   })
 })
+
+if (IDENTIFICATION_URL) app.use(auth({ url: IDENTIFICATION_URL }))
+
 app.use(prismaAutoCrud(prismaClient, options))
 app.listen(PORT, () => {
   console.log(`Express Listening on port ${PORT}`)

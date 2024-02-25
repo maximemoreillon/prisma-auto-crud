@@ -31,14 +31,15 @@ export interface TableController {
 }
 
 // Note: Middleware cannot be async
-export default (prismaClient: ExtendedPrismaClient, opts = {}) => {
+export default (prismaClient: PrismaClient, opts = {}) => {
   const options = {
     // Defaults come here
     ...opts,
   }
   const router = Router()
 
-  const modelsMap = prismaClient._runtimeDataModel.models
+  const modelsMap = (prismaClient as ExtendedPrismaClient)._runtimeDataModel
+    .models
 
   const modelNames = Object.keys(modelsMap)
 
