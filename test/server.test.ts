@@ -29,6 +29,11 @@ test("GET /user", async () => {
   expect(body.items.length).toBe(1)
 })
 
+test("GET /user?search=John", async () => {
+  const { body } = await request(app).get(`/user?search=John`)
+  expect(body.items.length).toBe(1)
+})
+
 test("GET /user/:id", async () => {
   const { status } = await request(app).get(`/user/${id}`)
   expect(status).toBe(200)

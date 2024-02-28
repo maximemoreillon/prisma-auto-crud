@@ -28,6 +28,7 @@ export interface TableController {
   update: Function
   delete: Function
   count: Function
+  fields: any
 }
 
 // Note: Middleware cannot be async

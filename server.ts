@@ -35,7 +35,10 @@ app.get("/", (_, res: Response) => {
   })
 })
 
-if (IDENTIFICATION_URL) app.use(auth({ url: IDENTIFICATION_URL }))
+if (IDENTIFICATION_URL) {
+  console.log(`Authentication enabled. URL: ${IDENTIFICATION_URL}`)
+  app.use(auth({ url: IDENTIFICATION_URL }))
+}
 
 app.use(prismaAutoCrud(prismaClient, options))
 app.listen(PORT, () => {

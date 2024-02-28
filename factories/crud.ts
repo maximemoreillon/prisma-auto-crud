@@ -29,8 +29,15 @@ export const generateItemsRead =
 
       // Note: offset pagination does not scale well
       // https://www.prisma.io/docs/concepts/components/prisma-client/pagination#-cons-of-offset-pagination
-      const query = {
-        where: { ...rest, ...(search ? JSON.parse(search) : undefined) },
+      const query = { where: rest }
+
+      if (search) {
+        const { fields } = prismaTableController
+        query.where.OR = Object.keys(fields)
+          .filter((k) => fields[k].typeName === "String")
+          .map((field) => ({
+            [field]: { contains: search, mode: "insensitive" },
+          }))
       }
 
       const fullQuery = {
