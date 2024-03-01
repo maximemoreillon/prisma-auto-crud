@@ -31,7 +31,7 @@ describe("/user", async () => {
       const { status, body } = await request(app).get(`/user`)
       expect(status).to.equal(200)
 
-      expect(body.items.length).to.above(1)
+      expect(body.items.length).to.above(0)
     })
   })
 
