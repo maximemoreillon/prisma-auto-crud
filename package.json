@@ -6,6 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "nodemon index.ts",
+    "compile": "tsc",
     "build": "tsc --outdir ./build -p . ",
     "start": "node ./build/server.js",
     "docker-start": "prisma db pull && prisma generate && npm run swagger-autogen && npm run start",
