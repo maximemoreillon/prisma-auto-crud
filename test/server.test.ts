@@ -16,7 +16,7 @@ describe("/models", async () => {
 
 describe("/user", async () => {
   describe("POST /user", async () => {
-    it("Should not allow the create a user", async () => {
+    it("Should allow the creattion of a user", async () => {
       const { status, body } = await request(app)
         .post(`/user`)
         .send({ name: "John" })
@@ -27,7 +27,7 @@ describe("/user", async () => {
   })
 
   describe("GET /user", async () => {
-    it("Should not allow the query users", async () => {
+    it("Should allow the query users", async () => {
       const { status, body } = await request(app).get(`/user`)
       expect(status).to.equal(200)
 
@@ -36,7 +36,7 @@ describe("/user", async () => {
   })
 
   describe("GET /user/:id", async () => {
-    it("Should not allow the query users", async () => {
+    it("Should allow the query of a user", async () => {
       const { status, body } = await request(app).get(`/user/${id}`)
       expect(status).to.equal(200)
       expect(body.name).to.equal("John")
@@ -44,7 +44,7 @@ describe("/user", async () => {
   })
 
   describe("PATCH /user/:id", async () => {
-    it("Should not allow the update of a user", async () => {
+    it("Should allow the update of a user", async () => {
       const { status } = await request(app)
         .patch(`/user/${id}`)
         .send({ name: "Jack" })
@@ -54,7 +54,7 @@ describe("/user", async () => {
   })
 
   describe("DELETE /user/:id", async () => {
-    it("Should not allow the deletion of a user", async () => {
+    it("Should allow the deletion of a user", async () => {
       const { status } = await request(app).delete(`/user/${id}`)
       expect(status).to.equal(200)
     })
