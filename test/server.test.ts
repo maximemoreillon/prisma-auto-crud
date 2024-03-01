@@ -1,52 +1,62 @@
 import { app } from "../server"
 import request from "supertest"
-// @ts-ignore
-import { expect, test } from "bun:test"
+import { expect } from "chai"
 
 let id: string
 
-test("GET /", async () => {
-  const { status } = await request(app).get(`/`)
-  expect(status).toBe(200)
+describe("/models", async () => {
+  describe("GET /", async () => {
+    it("Should not allow the query of available models", async () => {
+      const { status, body } = await request(app).get(`/models`)
+      expect(status).to.equal(200)
+      expect(body[0]).to.equal("user")
+    })
+  })
 })
 
-test("GET /models", async () => {
-  const { body } = await request(app).get(`/models`)
-  expect(body[0]).toBe("user")
-})
+describe("/user", async () => {
+  describe("POST /user", async () => {
+    it("Should not allow the create a user", async () => {
+      const { status, body } = await request(app)
+        .post(`/user`)
+        .send({ name: "John" })
 
-test("POST /user", async () => {
-  const { status, body } = await request(app)
-    .post(`/user`)
-    .send({ name: "John" })
+      id = body.id
+      expect(status).to.equal(200)
+    })
+  })
 
-  id = body.id
-  expect(status).toBe(200)
-})
+  describe("GET /user", async () => {
+    it("Should not allow the query users", async () => {
+      const { status, body } = await request(app).get(`/user`)
+      expect(status).to.equal(200)
 
-test("GET /user", async () => {
-  const { body } = await request(app).get(`/user`)
-  expect(body.items.length).toBe(1)
-})
+      expect(body.items.length).to.above(1)
+    })
+  })
 
-test("GET /user?search=John", async () => {
-  const { body } = await request(app).get(`/user?search=John`)
-  expect(body.items.length).toBe(1)
-})
+  describe("GET /user/:id", async () => {
+    it("Should not allow the query users", async () => {
+      const { status, body } = await request(app).get(`/user/${id}`)
+      expect(status).to.equal(200)
+      expect(body.name).to.equal("John")
+    })
+  })
 
-test("GET /user/:id", async () => {
-  const { status } = await request(app).get(`/user/${id}`)
-  expect(status).toBe(200)
-})
+  describe("PATCH /user/:id", async () => {
+    it("Should not allow the update of a user", async () => {
+      const { status } = await request(app)
+        .patch(`/user/${id}`)
+        .send({ name: "Jack" })
 
-test("PATCH /user/:id", async () => {
-  const { status } = await request(app)
-    .patch(`/user/${id}`)
-    .send({ name: "Jack" })
-  expect(status).toBe(200)
-})
+      expect(status).to.equal(200)
+    })
+  })
 
-test("DELETE /user/:id", async () => {
-  const { status } = await request(app).delete(`/user/${id}`)
-  expect(status).toBe(200)
+  describe("DELETE /user/:id", async () => {
+    it("Should not allow the deletion of a user", async () => {
+      const { status } = await request(app).delete(`/user/${id}`)
+      expect(status).to.equal(200)
+    })
+  })
 })

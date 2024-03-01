@@ -60,7 +60,8 @@ test:
       --name tdd-app
       --network ${TEST_NETWORK}
       -e DATABASE_URL=postgresql://postgres:${TEST_DB_PASSWORD}@${TEST_DB}:5432/${TEST_DB}?schema=public
-      ${CONTAINER_IMAGE_TEST} bun run ci-coverage
+      ${CONTAINER_IMAGE_TEST} 
+      npm run ci-coverage
 
 ## Release
 container:
