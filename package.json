@@ -5,11 +5,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "compile": "tsc",
-    "dev": "bun run --watch server.ts",
-    "docker-start": "prisma db pull && prisma generate && bun run swagger.ts && bun run ./server.ts",
-    "ci-test": "prisma db push && prisma generate && bun run swagger.ts && bun test",
-    "ci-coverage": "prisma db push && prisma generate && bun run swagger.ts && bun test --coverage"
+    "dev": "nodemon index.ts",
+    "build": "tsc --outdir ./build -p . ",
+    "start": "node ./build/server.js",
+    "docker-start": "prisma db pull && prisma generate && npm run swagger-autogen && npm run start",
+    "ci-test": "prisma db push && prisma generate && bun test",
+    "ci-coverage": "prisma db push && prisma generate && bun test --coverage",
+    "swagger-autogen": "ts-node swagger.ts"
   },
   "keywords": [],
   "author": "Maxime Moreillon",
@@ -28,7 +30,7 @@
     "nyc": "^15.1.0",
     "prisma": "^5.5.2",
     "supertest": "^6.3.4",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.0.2"
   },
   "dependencies": {
