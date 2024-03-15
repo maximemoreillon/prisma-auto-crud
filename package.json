@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "nodemon index.ts",
+    "dev": "nodemon server.ts",
     "compile": "tsc",
     "build": "tsc --outdir ./build -p . ",
     "start": "node ./build/server.js",
